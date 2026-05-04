@@ -1,0 +1,22 @@
+{
+  "type": "port",
+  "name": "predicates-kotlin",
+  "source": {
+    "path": "tmp/predicates/src",
+    "lang": "rust"
+  },
+  "target": {
+    "path": "src/commonMain/kotlin/io/github/kotlinmania/predicates",
+    "lang": "kotlin"
+  },
+  "checks": {
+    "deep": true,
+    "missing": true,
+    "todos": true,
+    "lint": true
+  },
+  "reexport_modules": [
+    "mod.rs",
+    "lib.rs"
+  ]
+}

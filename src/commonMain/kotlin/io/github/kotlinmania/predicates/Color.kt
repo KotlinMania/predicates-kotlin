@@ -19,7 +19,9 @@ package io.github.kotlinmania.predicates
  * always renders plain. The palette is preserved as a tracking layer so the
  * call sites in `Display` impls translate one-for-one.
  */
-internal class Palette(private val alternate: Boolean) {
+internal class Palette(
+    private val alternate: Boolean,
+) {
     fun description(display: Any): Styled = Styled(display)
 
     fun `var`(display: Any): Styled = Styled(display)
@@ -31,6 +33,8 @@ internal class Palette(private val alternate: Boolean) {
     }
 }
 
-internal class Styled(private val display: Any) {
+internal class Styled(
+    private val display: Any,
+) {
     override fun toString(): String = display.toString()
 }

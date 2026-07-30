@@ -97,8 +97,10 @@ class BasicsTest {
         assertEquals("var.starts_with(\"H\")", startsWith("H").toString())
         assertEquals("var.ends_with(\"!\")", endsWith("!").toString())
         assertEquals("var.is_empty()", isEmpty().toString())
-        assertEquals("(var.starts_with(\"H\") && var.ends_with(\"!\"))",
-            startsWith("H").and(endsWith("!")).toString())
+        assertEquals(
+            "(var.starts_with(\"H\") && var.ends_with(\"!\"))",
+            startsWith("H").and(endsWith("!")).toString(),
+        )
         assertEquals("(! var.contains(x))", contains("x").not().toString())
     }
 }

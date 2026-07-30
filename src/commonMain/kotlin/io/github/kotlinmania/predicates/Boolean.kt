@@ -16,7 +16,6 @@ package io.github.kotlinmania.predicates
 import io.github.kotlinmania.predicates.core.Predicate
 import io.github.kotlinmania.predicates.core.reflection.Case
 import io.github.kotlinmania.predicates.core.reflection.Child
-import io.github.kotlinmania.predicates.core.reflection.PredicateReflection
 
 /**
  * Predicate that combines two `Predicate`s, returning the AND of the results.
@@ -27,7 +26,6 @@ class AndPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
     private val a: M1,
     private val b: M2,
 ) : Predicate<Item> {
-
     override fun eval(variable: Item): Boolean = a.eval(variable) && b.eval(variable)
 
     override fun findCase(expected: Boolean, variable: Item): Case? {
@@ -40,9 +38,10 @@ class AndPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
             }
             expected && childA == null -> null
             !expected && childA != null -> Case(this, expected).addChild(childA)
-            else -> b.findCase(expected, variable)?.let { childB ->
-                Case(this, expected).addChild(childB)
-            }
+            else ->
+                b.findCase(expected, variable)?.let { childB ->
+                    Case(this, expected).addChild(childB)
+                }
         }
     }
 
@@ -77,7 +76,6 @@ class OrPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
     private val a: M1,
     private val b: M2,
 ) : Predicate<Item> {
-
     override fun eval(variable: Item): Boolean = a.eval(variable) || b.eval(variable)
 
     override fun findCase(expected: Boolean, variable: Item): Case? {
@@ -128,14 +126,12 @@ class OrPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
 class NotPredicate<M : Predicate<Item>, Item>(
     private val inner: M,
 ) : Predicate<Item> {
-
     override fun eval(variable: Item): Boolean = !inner.eval(variable)
 
-    override fun findCase(expected: Boolean, variable: Item): Case? {
-        return inner.findCase(!expected, variable)?.let { child ->
+    override fun findCase(expected: Boolean, variable: Item): Case? =
+        inner.findCase(!expected, variable)?.let { child ->
             Case(this, expected).addChild(child)
         }
-    }
 
     override fun children(): Iterator<Child> =
         listOf(Child("predicate", inner)).iterator()

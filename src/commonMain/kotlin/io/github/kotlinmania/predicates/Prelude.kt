@@ -57,7 +57,6 @@ import io.github.kotlinmania.predicates.str.startsWith as strStartsWith
  * PascalCase.
  */
 object PredicateFactory {
-
     /** `str` Predicate factories — predicates specific to string handling. */
     object Str {
         /** See [io.github.kotlinmania.predicates.str.isEmpty]. */

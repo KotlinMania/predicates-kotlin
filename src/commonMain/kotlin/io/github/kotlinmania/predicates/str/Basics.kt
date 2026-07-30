@@ -22,7 +22,6 @@ import io.github.kotlinmania.predicates.defaultFindCase
  * This is created by `predicates::str::isEmpty`.
  */
 class IsEmptyPredicate : Predicate<String> {
-
     override fun eval(variable: String): Boolean = variable.isEmpty()
 
     override fun findCase(expected: Boolean, variable: String): Case? =
@@ -56,8 +55,9 @@ fun isEmpty(): IsEmptyPredicate = IsEmptyPredicate()
  *
  * This is created by `predicates::str::startsWith`.
  */
-class StartsWithPredicate internal constructor(private val pattern: String) : Predicate<String> {
-
+class StartsWithPredicate internal constructor(
+    private val pattern: String,
+) : Predicate<String> {
     override fun eval(variable: String): Boolean = variable.startsWith(pattern)
 
     override fun findCase(expected: Boolean, variable: String): Case? =
@@ -95,8 +95,9 @@ fun startsWith(pattern: String): StartsWithPredicate = StartsWithPredicate(patte
  *
  * This is created by `predicates::str::endsWith`.
  */
-class EndsWithPredicate internal constructor(private val pattern: String) : Predicate<String> {
-
+class EndsWithPredicate internal constructor(
+    private val pattern: String,
+) : Predicate<String> {
     override fun eval(variable: String): Boolean = variable.endsWith(pattern)
 
     override fun findCase(expected: Boolean, variable: String): Case? =
@@ -134,8 +135,9 @@ fun endsWith(pattern: String): EndsWithPredicate = EndsWithPredicate(pattern)
  *
  * This is created by `predicates::str::contains`.
  */
-class ContainsPredicate internal constructor(internal val pattern: String) : Predicate<String> {
-
+class ContainsPredicate internal constructor(
+    internal val pattern: String,
+) : Predicate<String> {
     /**
      * Require a specific count of matches.
      *
@@ -177,7 +179,6 @@ class MatchesPredicate internal constructor(
     private val pattern: String,
     private val count: Int,
 ) : Predicate<String> {
-
     private fun countMatches(variable: String): Int {
         if (pattern.isEmpty()) {
             // Upstream `str::matches("")` yields a match between every char

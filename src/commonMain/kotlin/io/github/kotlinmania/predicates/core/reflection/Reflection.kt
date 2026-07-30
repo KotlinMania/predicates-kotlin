@@ -36,7 +36,10 @@ interface PredicateReflection {
  * println(param)
  * ```
  */
-class Parameter(private val key: String, private val displayValue: Any) {
+class Parameter(
+    private val key: String,
+    private val displayValue: Any,
+) {
     /** Access the `Parameter` name. */
     fun name(): String = key
 
@@ -51,7 +54,10 @@ class Parameter(private val key: String, private val displayValue: Any) {
 /**
  * A view of a `Predicate` child, provided by reflection.
  */
-class Child(private val key: String, private val displayValue: PredicateReflection) {
+class Child(
+    private val key: String,
+    private val displayValue: PredicateReflection,
+) {
     /** Access the `Child`'s name. */
     fun name(): String = key
 
@@ -107,14 +113,18 @@ class Case(
 }
 
 /** Iterator over a `Case`s by-products. */
-class CaseProducts(private val inner: Iterator<Product>) : Iterator<Product> {
+class CaseProducts(
+    private val inner: Iterator<Product>,
+) : Iterator<Product> {
     override fun hasNext(): Boolean = inner.hasNext()
 
     override fun next(): Product = inner.next()
 }
 
 /** Iterator over a `Case`s sub-cases. */
-class CaseChildren(private val inner: Iterator<Case>) : Iterator<Case> {
+class CaseChildren(
+    private val inner: Iterator<Case>,
+) : Iterator<Case> {
     override fun hasNext(): Boolean = inner.hasNext()
 
     override fun next(): Case = inner.next()
@@ -130,7 +140,10 @@ class CaseChildren(private val inner: Iterator<Case>) : Iterator<Case> {
  * println(product2)
  * ```
  */
-class Product(private val key: String, private val displayValue: Any) {
+class Product(
+    private val key: String,
+    private val displayValue: Any,
+) {
     /** Access the `Product` name. */
     fun name(): String = key
 

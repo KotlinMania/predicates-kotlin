@@ -18,7 +18,9 @@ import io.github.kotlinmania.predicates.core.reflection.Case
  * pretty-printing. The Kotlin counterpart simply forwards to [toString];
  * the upstream `Display` implementation rendered the same string.
  */
-internal class DebugAdapter<T>(internal val debug: T) {
+internal class DebugAdapter<T>(
+    internal val debug: T,
+) {
     override fun toString(): String = debug.toString()
 }
 

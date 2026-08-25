@@ -46,4 +46,4 @@ class FnPredicate<T>(
  * type implements `Predicate` and therefore has all combinators available to
  * it.
  */
-fun <T> function(func: (T) -> Boolean): FnPredicate<T> = FnPredicate(func)
+fun <T> function(fn: (T) -> Boolean): FnPredicate<T> = FnPredicate(fn)

@@ -62,7 +62,7 @@ object PredicateFactory {
 
     fun never(): BooleanPredicate = constNever()
 
-    fun <T> function(func: (T) -> Boolean): FnPredicate<T> = fnFunction(func)
+    fun <T> function(fn: (T) -> Boolean): FnPredicate<T> = fnFunction(fn)
 
     fun <T> inHash(iter: Iterable<T>): HashableInPredicate<T> = iterInHash(iter)
 

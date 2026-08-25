@@ -1,10 +1,4 @@
-// port-lint: ignore
-// Smoke tests for the string predicate factories. The upstream test
-// coverage lives in `tmp/predicates/src/boolean.rs` and the doctests
-// inside `tmp/predicates/src/str/basics.rs`; those tests reference
-// `predicate::always` / `predicate::never`, which have not been ported
-// yet, so the relevant boolean find-case tests will land alongside
-// `constant.rs`.
+// port-lint: tests str/basics.rs
 package io.github.kotlinmania.predicates.str
 
 import io.github.kotlinmania.predicates.and

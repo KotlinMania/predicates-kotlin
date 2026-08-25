@@ -6,11 +6,16 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-// port-lint: source str/mod.rs
-package io.github.kotlinmania.predicates.str
+// port-lint: tests boxed.rs
+package io.github.kotlinmania.predicates
 
-/**
- * String Predicates.
- *
- * This module contains predicates specific to string handling.
- */
+import kotlin.test.Test
+import kotlin.test.assertTrue
+
+class BoxedTest {
+    @Test
+    fun boxedPredicate() {
+        val boxedPred = always().boxed()
+        assertTrue(boxedPred.eval(42))
+    }
+}

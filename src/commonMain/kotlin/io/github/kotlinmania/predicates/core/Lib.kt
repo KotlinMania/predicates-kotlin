@@ -23,16 +23,8 @@ package io.github.kotlinmania.predicates.core
  * configuration. See the examples for how this can work.
  */
 
-// Upstream re-exports the trait `Predicate` from the `core` submodule:
-//   mod core;
-//   pub use crate::core::core::Predicate;
-//   pub mod reflection;
-//
+// Upstream re-exports the trait Predicate from the core submodule.
 // Kotlin callers reference the defining package directly:
 //   io.github.kotlinmania.predicates.core.Predicate
 //   io.github.kotlinmania.predicates.core.reflection.*
-//
-// Callers migrated:
-//   (predicates-kotlin only — predicates-core has no other Kotlin downstreams
-//   yet; once a separate predicates-core-kotlin port is extracted, this file
-//   becomes the migration ledger.)
+

@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-// port-lint: source src/str/basics.rs
+// port-lint: source str/basics.rs
 package io.github.kotlinmania.predicates.str
 
 import io.github.kotlinmania.predicates.Palette

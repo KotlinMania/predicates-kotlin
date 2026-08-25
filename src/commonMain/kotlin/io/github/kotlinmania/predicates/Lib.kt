@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-// port-lint: source src/lib.rs
+// port-lint: source lib.rs
 package io.github.kotlinmania.predicates
 
 /**
@@ -75,37 +75,13 @@ package io.github.kotlinmania.predicates
  * entries land here once the backing files are ported.
  */
 
-// Upstream layout:
+// Upstream layout translates into Kotlin packages:
 //
-//   pub mod prelude;
-//   pub use predicates_core::*;
-//   mod boxed;
-//   pub use crate::boxed::*;
-//
-//   pub mod constant;
-//   pub mod function;
-//   pub mod iter;
-//   pub mod name;
-//   pub mod ord;
-//
-//   pub mod boolean;
-//
-//   pub mod float;
-//   pub mod path;
-//   pub mod str;
-//
-//   mod color;
-//   use color::Palette;
-//   mod utils;
-//
-// Kotlin callers reach into the corresponding packages directly:
-//
-//   io.github.kotlinmania.predicates.core            (Predicate trait)
+//   io.github.kotlinmania.predicates.core            (Predicate interface)
 //   io.github.kotlinmania.predicates.core.reflection (reflection types)
 //   io.github.kotlinmania.predicates.str             (string predicates)
+//   io.github.kotlinmania.predicates.path            (path predicates)
+//   io.github.kotlinmania.predicates.float           (float predicates)
 //   io.github.kotlinmania.predicates.prelude         (factory namespace)
-//   io.github.kotlinmania.predicates                 (boolean combinators)
-//
-// The boxed / constant / function / iter / name / ord / float / path
-// modules are not yet ported in this snapshot. Each upstream module retains
-// a 1:1 mapping into its Kotlin counterpart file when it lands.
+//   io.github.kotlinmania.predicates                 (boolean combinators, constant, function, iter, ord)
+

@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-// port-lint: source src/color.rs
+// port-lint: source color.rs
 package io.github.kotlinmania.predicates
 
 /**
@@ -20,15 +20,19 @@ package io.github.kotlinmania.predicates
  * call sites in `Display` impls translate one-for-one.
  */
 internal class Palette(
-    private val alternate: Boolean,
+    private val alternate: Boolean = false,
 ) {
-    fun description(display: Any): Styled = Styled(display)
+    fun description(display: Any): Styled = Styled.new(display)
 
-    fun `var`(display: Any): Styled = Styled(display)
+    fun `var`(display: Any): Styled = Styled.new(display)
 
-    fun expected(display: Any): Styled = Styled(display)
+    fun varValue(display: Any): Styled = Styled.new(display)
+
+    fun expected(display: Any): Styled = Styled.new(display)
 
     companion object {
+        fun new(alternate: Boolean): Palette = Palette(alternate)
+
         fun plain(): Palette = Palette(alternate = false)
     }
 }
@@ -36,5 +40,11 @@ internal class Palette(
 internal class Styled(
     private val display: Any,
 ) {
-    override fun toString(): String = display.toString()
+    companion object {
+        fun new(display: Any, style: Any? = null): Styled = Styled(display)
+    }
+
+    fun fmt(): String = display.toString()
+
+    override fun toString(): String = fmt()
 }

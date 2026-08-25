@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-// port-lint: source src/boolean.rs
+// port-lint: source boolean.rs
 package io.github.kotlinmania.predicates
 
 /**

@@ -6,11 +6,11 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-// port-lint: source str/mod.rs
-package io.github.kotlinmania.predicates.str
+// port-lint: source path/mod.rs
+package io.github.kotlinmania.predicates.path
 
 /**
- * String Predicates.
+ * Path Predicates.
  *
- * This module contains predicates specific to string handling.
+ * This module contains predicates specific to the file system.
  */

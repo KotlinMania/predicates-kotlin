@@ -6,7 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-// port-lint: source src/utils.rs
+// port-lint: source utils.rs
 package io.github.kotlinmania.predicates
 
 import io.github.kotlinmania.predicates.core.Predicate
@@ -21,7 +21,13 @@ import io.github.kotlinmania.predicates.core.reflection.Case
 internal class DebugAdapter<T>(
     internal val debug: T,
 ) {
-    override fun toString(): String = debug.toString()
+    companion object {
+        fun <T> new(debug: T): DebugAdapter<T> = DebugAdapter(debug)
+    }
+
+    fun fmt(): String = debug.toString()
+
+    override fun toString(): String = fmt()
 }
 
 internal fun <P : Predicate<Item>, Item> defaultFindCase(

@@ -19,8 +19,8 @@ import io.github.kotlinmania.predicates.core.reflection.Product
  *
  * This is created by `pred.fromFilePath()`.
  */
-class FileContentPredicate<P : Predicate<ByteArray>>(
-    internal val p: P,
+class FileContentPredicate internal constructor(
+    internal val p: Predicate<ByteArray>,
 ) : Predicate<String> {
     override fun eval(variable: String): Boolean =
         p.eval(variable.encodeToByteArray())
@@ -39,7 +39,7 @@ class FileContentPredicate<P : Predicate<ByteArray>>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is FileContentPredicate<*>) return false
+        if (other !is FileContentPredicate) return false
         return p == other.p
     }
 
@@ -49,5 +49,5 @@ class FileContentPredicate<P : Predicate<ByteArray>>(
 /**
  * Returns a [FileContentPredicate] that adapts this predicate to a path content predicate.
  */
-fun <P : Predicate<ByteArray>> P.fromFilePath(): FileContentPredicate<P> =
+fun Predicate<ByteArray>.fromFilePath(): FileContentPredicate =
     FileContentPredicate(this)

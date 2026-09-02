@@ -72,13 +72,13 @@ object PredicateFactory {
 
     fun <T> ne(constant: T): EqPredicate<T> = ordNe(constant)
 
-    fun <T : Comparable<T>> lt(constant: T): OrdPredicate<T> = ordLt(constant)
+    fun <T : Comparable<*>> lt(constant: T): OrdPredicate<T> = ordLt(constant)
 
-    fun <T : Comparable<T>> le(constant: T): OrdPredicate<T> = ordLe(constant)
+    fun <T : Comparable<*>> le(constant: T): OrdPredicate<T> = ordLe(constant)
 
-    fun <T : Comparable<T>> ge(constant: T): OrdPredicate<T> = ordGe(constant)
+    fun <T : Comparable<*>> ge(constant: T): OrdPredicate<T> = ordGe(constant)
 
-    fun <T : Comparable<T>> gt(constant: T): OrdPredicate<T> = ordGt(constant)
+    fun <T : Comparable<*>> gt(constant: T): OrdPredicate<T> = ordGt(constant)
 
     /** `str` Predicate factories — predicates specific to string handling. */
     object Str {

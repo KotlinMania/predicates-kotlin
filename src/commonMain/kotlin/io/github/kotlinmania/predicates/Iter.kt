@@ -51,9 +51,10 @@ class InPredicate<T>(
  * Creates a new predicate that will return `true` when the given `variable` is
  * contained with the set of items provided and sorted for binary search.
  */
-fun <T : Comparable<T>> InPredicate<T>.sort(): OrdInPredicate<T> {
+fun <T : Comparable<*>> InPredicate<T>.sort(): OrdInPredicate<T> {
     val items = inner.toMutableList()
-    items.sort()
+    @Suppress("UNCHECKED_CAST")
+    (items as MutableList<Comparable<Any?>>).sort()
     return OrdInPredicate(items)
 }
 
@@ -68,11 +69,12 @@ fun <T> inIter(iter: Iterable<T>): InPredicate<T> =
  * Predicate that returns `true` if `variable` is a member of the pre-defined
  * sorted set, otherwise returns `false`.
  */
-class OrdInPredicate<T : Comparable<T>>(
+class OrdInPredicate<T : Comparable<*>>(
     internal val inner: List<T>,
 ) : Predicate<T> {
+    @Suppress("UNCHECKED_CAST")
     override fun eval(variable: T): Boolean =
-        inner.binarySearch(variable) >= 0
+        (inner as List<Comparable<Any?>>).binarySearch(variable as Comparable<Any?>) >= 0
 
     override fun findCase(expected: Boolean, variable: T): Case? =
         defaultFindCase(this, expected, variable)?.addProduct(

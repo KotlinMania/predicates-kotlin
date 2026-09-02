@@ -113,7 +113,7 @@ class Case(
 }
 
 /** Iterator over a `Case`s by-products. */
-class CaseProducts(
+class CaseProducts internal constructor(
     private val inner: Iterator<Product>,
 ) : Iterator<Product> {
     override fun hasNext(): Boolean = inner.hasNext()
@@ -122,7 +122,7 @@ class CaseProducts(
 }
 
 /** Iterator over a `Case`s sub-cases. */
-class CaseChildren(
+class CaseChildren internal constructor(
     private val inner: Iterator<Case>,
 ) : Iterator<Case> {
     override fun hasNext(): Boolean = inner.hasNext()

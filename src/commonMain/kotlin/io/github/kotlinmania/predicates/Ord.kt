@@ -92,17 +92,20 @@ internal enum class OrdOps(private val op: String) {
  *
  * This is created by the [gt], [ge], [lt], [le] functions.
  */
-class OrdPredicate<T : Comparable<T>> internal constructor(
+class OrdPredicate<T : Comparable<*>> internal constructor(
     internal val constant: T,
     internal val op: OrdOps,
 ) : Predicate<T> {
-    override fun eval(variable: T): Boolean =
-        when (op) {
-            OrdOps.LessThan -> variable < constant
-            OrdOps.LessThanOrEqual -> variable <= constant
-            OrdOps.GreaterThanOrEqual -> variable >= constant
-            OrdOps.GreaterThan -> variable > constant
+    @Suppress("UNCHECKED_CAST")
+    override fun eval(variable: T): Boolean {
+        val cmp = (variable as Comparable<Any?>).compareTo(constant)
+        return when (op) {
+            OrdOps.LessThan -> cmp < 0
+            OrdOps.LessThanOrEqual -> cmp <= 0
+            OrdOps.GreaterThanOrEqual -> cmp >= 0
+            OrdOps.GreaterThan -> cmp > 0
         }
+    }
 
     override fun findCase(expected: Boolean, variable: T): Case? =
         defaultFindCase(this, expected, variable)?.addProduct(
@@ -133,26 +136,26 @@ class OrdPredicate<T : Comparable<T>> internal constructor(
  * Creates a new predicate that will return `true` when the given `variable` is
  * less than a pre-defined value.
  */
-fun <T : Comparable<T>> lt(constant: T): OrdPredicate<T> =
+fun <T : Comparable<*>> lt(constant: T): OrdPredicate<T> =
     OrdPredicate(constant, OrdOps.LessThan)
 
 /**
  * Creates a new predicate that will return `true` when the given `variable` is
  * less than or equal to a pre-defined value.
  */
-fun <T : Comparable<T>> le(constant: T): OrdPredicate<T> =
+fun <T : Comparable<*>> le(constant: T): OrdPredicate<T> =
     OrdPredicate(constant, OrdOps.LessThanOrEqual)
 
 /**
  * Creates a new predicate that will return `true` when the given `variable` is
  * greater than or equal to a pre-defined value.
  */
-fun <T : Comparable<T>> ge(constant: T): OrdPredicate<T> =
+fun <T : Comparable<*>> ge(constant: T): OrdPredicate<T> =
     OrdPredicate(constant, OrdOps.GreaterThanOrEqual)
 
 /**
  * Creates a new predicate that will return `true` when the given `variable` is
  * greater than a pre-defined value.
  */
-fun <T : Comparable<T>> gt(constant: T): OrdPredicate<T> =
+fun <T : Comparable<*>> gt(constant: T): OrdPredicate<T> =
     OrdPredicate(constant, OrdOps.GreaterThan)

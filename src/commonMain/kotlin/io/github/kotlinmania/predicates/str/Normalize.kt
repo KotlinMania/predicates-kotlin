@@ -21,8 +21,8 @@ private fun normalizeLineEndings(input: String): String =
  *
  * This is created by `pred.normalize()`.
  */
-class NormalizedPredicate<P : Predicate<String>>(
-    internal val p: P,
+class NormalizedPredicate internal constructor(
+    internal val p: Predicate<String>,
 ) : Predicate<String> {
     override fun eval(variable: String): Boolean {
         val normalized = normalizeLineEndings(variable)
@@ -43,7 +43,7 @@ class NormalizedPredicate<P : Predicate<String>>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is NormalizedPredicate<*>) return false
+        if (other !is NormalizedPredicate) return false
         return p == other.p
     }
 

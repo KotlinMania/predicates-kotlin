@@ -22,9 +22,9 @@ import io.github.kotlinmania.predicates.core.reflection.Child
  *
  * This is created by the `Predicate.and` extension function.
  */
-class AndPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
-    private val a: M1,
-    private val b: M2,
+class AndPredicate<Item>(
+    private val a: Predicate<Item>,
+    private val b: Predicate<Item>,
 ) : Predicate<Item> {
     override fun eval(variable: Item): Boolean = a.eval(variable) && b.eval(variable)
 
@@ -52,7 +52,7 @@ class AndPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is AndPredicate<*, *, *>) return false
+        if (other !is AndPredicate<*>) return false
         return a == other.a && b == other.b
     }
 
@@ -60,10 +60,10 @@ class AndPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
 
     companion object {
         /** Create a new `AndPredicate` over predicates `a` and `b`. */
-        fun <M1 : Predicate<Item>, M2 : Predicate<Item>, Item> new(
-            a: M1,
-            b: M2,
-        ): AndPredicate<M1, M2, Item> = AndPredicate(a, b)
+        fun <Item> new(
+            a: Predicate<Item>,
+            b: Predicate<Item>,
+        ): AndPredicate<Item> = AndPredicate(a, b)
     }
 }
 
@@ -72,9 +72,9 @@ class AndPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
  *
  * This is created by the `Predicate.or` extension function.
  */
-class OrPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
-    private val a: M1,
-    private val b: M2,
+class OrPredicate<Item>(
+    private val a: Predicate<Item>,
+    private val b: Predicate<Item>,
 ) : Predicate<Item> {
     override fun eval(variable: Item): Boolean = a.eval(variable) || b.eval(variable)
 
@@ -103,7 +103,7 @@ class OrPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is OrPredicate<*, *, *>) return false
+        if (other !is OrPredicate<*>) return false
         return a == other.a && b == other.b
     }
 
@@ -111,10 +111,10 @@ class OrPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
 
     companion object {
         /** Create a new `OrPredicate` over predicates `a` and `b`. */
-        fun <M1 : Predicate<Item>, M2 : Predicate<Item>, Item> new(
-            a: M1,
-            b: M2,
-        ): OrPredicate<M1, M2, Item> = OrPredicate(a, b)
+        fun <Item> new(
+            a: Predicate<Item>,
+            b: Predicate<Item>,
+        ): OrPredicate<Item> = OrPredicate(a, b)
     }
 }
 
@@ -123,8 +123,8 @@ class OrPredicate<M1 : Predicate<Item>, M2 : Predicate<Item>, Item>(
  *
  * This is created by the `Predicate.not` extension function.
  */
-class NotPredicate<M : Predicate<Item>, Item>(
-    private val inner: M,
+class NotPredicate<Item>(
+    private val inner: Predicate<Item>,
 ) : Predicate<Item> {
     override fun eval(variable: Item): Boolean = !inner.eval(variable)
 
@@ -140,7 +140,7 @@ class NotPredicate<M : Predicate<Item>, Item>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is NotPredicate<*, *>) return false
+        if (other !is NotPredicate<*>) return false
         return inner == other.inner
     }
 
@@ -148,7 +148,7 @@ class NotPredicate<M : Predicate<Item>, Item>(
 
     companion object {
         /** Create a new `NotPredicate` over predicate `inner`. */
-        fun <M : Predicate<Item>, Item> new(inner: M): NotPredicate<M, Item> = NotPredicate(inner)
+        fun <Item> new(inner: Predicate<Item>): NotPredicate<Item> = NotPredicate(inner)
     }
 }
 
@@ -164,9 +164,9 @@ class NotPredicate<M : Predicate<Item>, Item>(
  * assertEquals(false, predicateFn2.eval(4))
  * ```
  */
-fun <M1 : Predicate<Item>, M2 : Predicate<Item>, Item> M1.and(
-    other: M2,
-): AndPredicate<M1, M2, Item> = AndPredicate.new(this, other)
+fun <Item> Predicate<Item>.and(
+    other: Predicate<Item>,
+): AndPredicate<Item> = AndPredicate.new(this, other)
 
 /**
  * Compute the logical OR of two `Predicate` results, returning the result.
@@ -182,9 +182,9 @@ fun <M1 : Predicate<Item>, M2 : Predicate<Item>, Item> M1.and(
  * assertEquals(false, predicateFn3.eval(4))
  * ```
  */
-fun <M1 : Predicate<Item>, M2 : Predicate<Item>, Item> M1.or(
-    other: M2,
-): OrPredicate<M1, M2, Item> = OrPredicate.new(this, other)
+fun <Item> Predicate<Item>.or(
+    other: Predicate<Item>,
+): OrPredicate<Item> = OrPredicate.new(this, other)
 
 /**
  * Compute the logical NOT of a `Predicate`, returning the result.
@@ -198,7 +198,7 @@ fun <M1 : Predicate<Item>, M2 : Predicate<Item>, Item> M1.or(
  * assertEquals(true, predicateFn2.eval(4))
  * ```
  */
-fun <M : Predicate<Item>, Item> M.not(): NotPredicate<M, Item> = NotPredicate.new(this)
+fun <Item> Predicate<Item>.not(): NotPredicate<Item> = NotPredicate.new(this)
 
 /**
  * `Predicate` extension marker that documents the boolean-logic surface.

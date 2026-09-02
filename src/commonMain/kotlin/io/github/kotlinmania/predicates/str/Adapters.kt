@@ -19,8 +19,8 @@ import io.github.kotlinmania.predicates.core.reflection.Product
  *
  * This is created by `pred.trim()`.
  */
-class TrimPredicate<P : Predicate<String>>(
-    internal val p: P,
+class TrimPredicate internal constructor(
+    internal val p: Predicate<String>,
 ) : Predicate<String> {
     override fun eval(variable: String): Boolean = p.eval(variable.trim())
 
@@ -36,7 +36,7 @@ class TrimPredicate<P : Predicate<String>>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is TrimPredicate<*>) return false
+        if (other !is TrimPredicate) return false
         return p == other.p
     }
 
@@ -48,8 +48,8 @@ class TrimPredicate<P : Predicate<String>>(
  *
  * This is created by `pred.fromUtf8()`.
  */
-class Utf8Predicate<P : Predicate<String>>(
-    internal val p: P,
+class Utf8Predicate internal constructor(
+    internal val p: Predicate<String>,
 ) : Predicate<ByteArray> {
     override fun eval(variable: ByteArray): Boolean =
         try {
@@ -83,7 +83,7 @@ class Utf8Predicate<P : Predicate<String>>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is Utf8Predicate<*>) return false
+        if (other !is Utf8Predicate) return false
         return p == other.p
     }
 
@@ -93,15 +93,15 @@ class Utf8Predicate<P : Predicate<String>>(
 /**
  * Returns a [TrimPredicate] that ensures the data passed to this predicate is trimmed.
  */
-fun <P : Predicate<String>> P.trim(): TrimPredicate<P> = TrimPredicate(this)
+fun Predicate<String>.trim(): TrimPredicate = TrimPredicate(this)
 
 /**
  * Returns a [Utf8Predicate] that adapts this predicate to a [ByteArray] predicate.
  */
-fun <P : Predicate<String>> P.fromUtf8(): Utf8Predicate<P> = Utf8Predicate(this)
+fun Predicate<String>.fromUtf8(): Utf8Predicate = Utf8Predicate(this)
 
 /**
  * Returns a [NormalizedPredicate] that ensures the newlines within the data
  * passed to this predicate are normalised.
  */
-fun <P : Predicate<String>> P.normalize(): NormalizedPredicate<P> = NormalizedPredicate(this)
+fun Predicate<String>.normalize(): NormalizedPredicate = NormalizedPredicate(this)

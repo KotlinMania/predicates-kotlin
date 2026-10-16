@@ -15,6 +15,13 @@ import io.github.kotlinmania.predicates.core.reflection.Case
 import io.github.kotlinmania.predicates.core.reflection.Parameter
 import io.github.kotlinmania.predicates.core.reflection.Product
 import io.github.kotlinmania.predicates.defaultFindCase
+import io.github.kotlinmania.regex.Regex
+import io.github.kotlinmania.regex.RegexError
+
+/**
+ * An error that occurred during parsing or compiling a regular expression.
+ */
+typealias RegexError = RegexError
 
 /**
  * Predicate that uses regex matching.
@@ -31,7 +38,7 @@ class RegexPredicate(
         RegexMatchesPredicate(re, count)
 
     override fun eval(variable: String): Boolean =
-        re.containsMatchIn(variable)
+        re.isMatch(variable)
 
     override fun findCase(expected: Boolean, variable: String): Case? =
         defaultFindCase(this, expected, variable)?.addProduct(
@@ -40,7 +47,7 @@ class RegexPredicate(
 
     fun fmt(): String {
         val palette = Palette.new(false)
-        return "${palette.varValue("var")}.${palette.description("is_match")}(${palette.expected(re.pattern)})"
+        return "${palette.varValue("var")}.${palette.description("is_match")}(${palette.expected(re.asStr())})"
     }
 
     override fun toString(): String = fmt()
@@ -48,10 +55,10 @@ class RegexPredicate(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is RegexPredicate) return false
-        return re.pattern == other.re.pattern
+        return re.asStr() == other.re.asStr()
     }
 
-    override fun hashCode(): Int = re.pattern.hashCode()
+    override fun hashCode(): Int = re.asStr().hashCode()
 }
 
 /**
@@ -64,10 +71,10 @@ class RegexMatchesPredicate(
     internal val count: Int,
 ) : Predicate<String> {
     override fun eval(variable: String): Boolean =
-        re.findAll(variable).count() == count
+        re.findIter(variable).count() == count
 
     override fun findCase(expected: Boolean, variable: String): Case? {
-        val actualCount = re.findAll(variable).count()
+        val actualCount = re.findIter(variable).count()
         val result = count == actualCount
         return if (result == expected) {
             Case(this, result)
@@ -83,7 +90,7 @@ class RegexMatchesPredicate(
 
     fun fmt(): String {
         val palette = Palette.new(false)
-        return "${palette.varValue("var")}.${palette.description("is_match")}(${palette.expected(re.pattern)})"
+        return "${palette.varValue("var")}.${palette.description("is_match")}(${palette.expected(re.asStr())})"
     }
 
     override fun toString(): String = fmt()
@@ -91,14 +98,14 @@ class RegexMatchesPredicate(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is RegexMatchesPredicate) return false
-        return re.pattern == other.re.pattern && count == other.count
+        return re.asStr() == other.re.asStr() && count == other.count
     }
 
-    override fun hashCode(): Int = 31 * re.pattern.hashCode() + count
+    override fun hashCode(): Int = 31 * re.asStr().hashCode() + count
 }
 
 /**
  * Creates a new `Predicate` that uses a regular expression to match the string.
  */
 fun isMatch(pattern: String): RegexPredicate =
-    RegexPredicate(Regex(pattern))
+    RegexPredicate(Regex.new(pattern))

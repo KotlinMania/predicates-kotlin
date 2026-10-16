@@ -9,42 +9,64 @@
 // port-lint: source color.rs
 package io.github.kotlinmania.predicates
 
-/**
- * Palette used by `Display` implementations to optionally render fragments
- * of a predicate description with ANSI styling.
- *
- * Upstream uses the `anstyle` crate to switch styling on when the formatter
- * is in `f.alternate()` (`{:#}`) mode and the `color` feature is enabled.
- * The Kotlin port has no equivalent formatter-flag plumbing, so styling
- * always renders plain. The palette is preserved as a tracking layer so the
- * call sites in `Display` impls translate one-for-one.
- */
+import ai.solace.tui.anstyle.AnsiColor
+import ai.solace.tui.anstyle.Effects
+import ai.solace.tui.anstyle.Style
+import ai.solace.tui.anstyle.or
+
 internal class Palette(
+    internal val description: Style = Style(),
+    internal val `var`: Style = Style(),
+    internal val expected: Style = Style(),
     private val alternate: Boolean = false,
 ) {
-    fun description(display: Any): Styled = Styled.new(display)
+    fun description(display: Any): Styled<Any> = Styled(display, description, alternate)
 
-    fun `var`(display: Any): Styled = Styled.new(display)
+    fun `var`(display: Any): Styled<Any> = Styled(display, `var`, alternate)
 
-    fun varValue(display: Any): Styled = Styled.new(display)
+    fun varValue(display: Any): Styled<Any> = `var`(display)
 
-    fun expected(display: Any): Styled = Styled.new(display)
+    fun expected(display: Any): Styled<Any> = Styled(display, expected, alternate)
 
     companion object {
-        fun new(alternate: Boolean): Palette = Palette(alternate)
+        fun new(alternate: Boolean): Palette =
+            if (alternate) {
+                Palette(
+                    description = AnsiColor.Blue.onDefault() or Effects.BOLD,
+                    `var` = AnsiColor.Red.onDefault() or Effects.BOLD,
+                    expected = AnsiColor.Green.onDefault() or Effects.BOLD,
+                    alternate = true,
+                )
+            } else {
+                plain()
+            }
 
-        fun plain(): Palette = Palette(alternate = false)
+        fun plain(): Palette =
+            Palette(
+                description = Style(),
+                `var` = Style(),
+                expected = Style(),
+                alternate = false,
+            )
     }
 }
 
-internal class Styled(
-    private val display: Any,
+internal class Styled<D>(
+    private val display: D,
+    private val style: Style = Style(),
+    private val alternate: Boolean = false,
 ) {
     companion object {
-        fun new(display: Any, style: Any? = null): Styled = Styled(display)
+        fun <D> new(display: D, style: Style = Style(), alternate: Boolean = false): Styled<D> =
+            Styled(display, style, alternate)
     }
 
-    fun fmt(): String = display.toString()
+    fun fmt(): String =
+        if (alternate) {
+            "${style.render()}$display${style.renderReset()}"
+        } else {
+            display.toString()
+        }
 
     override fun toString(): String = fmt()
 }

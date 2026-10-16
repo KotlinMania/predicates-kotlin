@@ -15,7 +15,9 @@ import io.github.kotlinmania.predicates.core.reflection.Case
 import io.github.kotlinmania.predicates.core.reflection.Parameter
 import io.github.kotlinmania.predicates.core.reflection.Product
 
-internal enum class FileType(private val label: String) {
+internal enum class FileType(
+    private val label: String,
+) {
     File("file"),
     Dir("dir"),
     Symlink("symlink"),

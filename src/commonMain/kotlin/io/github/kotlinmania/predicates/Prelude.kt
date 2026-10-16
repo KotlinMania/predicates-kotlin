@@ -15,9 +15,18 @@ import io.github.kotlinmania.predicates.FnPredicate
 import io.github.kotlinmania.predicates.HashableInPredicate
 import io.github.kotlinmania.predicates.InPredicate
 import io.github.kotlinmania.predicates.OrdPredicate
+import io.github.kotlinmania.predicates.float.IsClosePredicate
+import io.github.kotlinmania.predicates.path.BinaryFilePredicate
+import io.github.kotlinmania.predicates.path.ExistencePredicate
+import io.github.kotlinmania.predicates.path.FileTypePredicate
+import io.github.kotlinmania.predicates.str.ContainsPredicate
+import io.github.kotlinmania.predicates.str.DifferencePredicate
+import io.github.kotlinmania.predicates.str.EndsWithPredicate
+import io.github.kotlinmania.predicates.str.IsEmptyPredicate
+import io.github.kotlinmania.predicates.str.RegexPredicate
+import io.github.kotlinmania.predicates.str.StartsWithPredicate
 import io.github.kotlinmania.predicates.always as constAlways
 import io.github.kotlinmania.predicates.eq as ordEq
-import io.github.kotlinmania.predicates.float.IsClosePredicate
 import io.github.kotlinmania.predicates.float.isClose as floatIsClose
 import io.github.kotlinmania.predicates.function as fnFunction
 import io.github.kotlinmania.predicates.ge as ordGe
@@ -28,21 +37,12 @@ import io.github.kotlinmania.predicates.le as ordLe
 import io.github.kotlinmania.predicates.lt as ordLt
 import io.github.kotlinmania.predicates.ne as ordNe
 import io.github.kotlinmania.predicates.never as constNever
-import io.github.kotlinmania.predicates.path.BinaryFilePredicate
-import io.github.kotlinmania.predicates.path.ExistencePredicate
-import io.github.kotlinmania.predicates.path.FileTypePredicate
 import io.github.kotlinmania.predicates.path.eqFile as pathEqFile
 import io.github.kotlinmania.predicates.path.exists as pathExists
 import io.github.kotlinmania.predicates.path.isDir as pathIsDir
 import io.github.kotlinmania.predicates.path.isFile as pathIsFile
 import io.github.kotlinmania.predicates.path.isSymlink as pathIsSymlink
 import io.github.kotlinmania.predicates.path.missing as pathMissing
-import io.github.kotlinmania.predicates.str.ContainsPredicate
-import io.github.kotlinmania.predicates.str.DifferencePredicate
-import io.github.kotlinmania.predicates.str.EndsWithPredicate
-import io.github.kotlinmania.predicates.str.IsEmptyPredicate
-import io.github.kotlinmania.predicates.str.RegexPredicate
-import io.github.kotlinmania.predicates.str.StartsWithPredicate
 import io.github.kotlinmania.predicates.str.contains as strContains
 import io.github.kotlinmania.predicates.str.diff as strDiff
 import io.github.kotlinmania.predicates.str.endsWith as strEndsWith

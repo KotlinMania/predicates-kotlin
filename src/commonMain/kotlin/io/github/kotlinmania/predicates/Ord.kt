@@ -13,7 +13,9 @@ import io.github.kotlinmania.predicates.core.Predicate
 import io.github.kotlinmania.predicates.core.reflection.Case
 import io.github.kotlinmania.predicates.core.reflection.Product
 
-internal enum class EqOps(private val op: String) {
+internal enum class EqOps(
+    private val op: String,
+) {
     Equal("=="),
     NotEqual("!="),
     ;
@@ -76,7 +78,9 @@ fun <T> eq(constant: T): EqPredicate<T> =
 fun <T> ne(constant: T): EqPredicate<T> =
     EqPredicate(constant, EqOps.NotEqual)
 
-internal enum class OrdOps(private val op: String) {
+internal enum class OrdOps(
+    private val op: String,
+) {
     LessThan("<"),
     LessThanOrEqual("<="),
     GreaterThanOrEqual(">="),

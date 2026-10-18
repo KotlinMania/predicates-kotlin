@@ -16,7 +16,6 @@ import io.github.kotlinmania.predicates.core.reflection.Parameter
 import io.github.kotlinmania.predicates.core.reflection.Product
 import io.github.kotlinmania.predicates.defaultFindCase
 import io.github.kotlinmania.regex.Regex
-import io.github.kotlinmania.regex.RegexError
 
 /**
  * Predicate that uses regex matching.

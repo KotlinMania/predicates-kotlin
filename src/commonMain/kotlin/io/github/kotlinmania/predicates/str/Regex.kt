@@ -19,11 +19,6 @@ import io.github.kotlinmania.regex.Regex
 import io.github.kotlinmania.regex.RegexError
 
 /**
- * An error that occurred during parsing or compiling a regular expression.
- */
-typealias RegexError = RegexError
-
-/**
  * Predicate that uses regex matching.
  *
  * This is created by [isMatch].

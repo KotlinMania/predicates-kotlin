@@ -72,7 +72,7 @@ library.
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:predicates-kotlin:0.1.0")
+    implementation("io.github.kotlinmania:predicates-kotlin:0.2.0")
 }
 ```
 

@@ -16,13 +16,3 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "predicates-kotlin"
-
-val regexKotlinLocal = file("../regex-kotlin")
-if (regexKotlinLocal.exists()) {
-    includeBuild(regexKotlinLocal) {
-        dependencySubstitution {
-            substitute(module("io.github.kotlinmania:regex-kotlin"))
-                .using(project(":"))
-        }
-    }
-}

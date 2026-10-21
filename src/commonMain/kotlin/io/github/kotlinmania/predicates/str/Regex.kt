@@ -16,12 +16,6 @@ import io.github.kotlinmania.predicates.core.reflection.Parameter
 import io.github.kotlinmania.predicates.core.reflection.Product
 import io.github.kotlinmania.predicates.defaultFindCase
 import io.github.kotlinmania.regex.Regex
-import io.github.kotlinmania.regex.RegexError
-
-/**
- * An error that occurred during parsing or compiling a regular expression.
- */
-typealias RegexError = RegexError
 
 /**
  * Predicate that uses regex matching.
